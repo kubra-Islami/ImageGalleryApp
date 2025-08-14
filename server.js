@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3002;
 
 //Middlewares setup
+app.use(express.static('public'));
 app.use(express.urlencoded({extended: true}));
 app.use('/uploads', express.static('uploads'));
 app.set("view engine", "ejs");

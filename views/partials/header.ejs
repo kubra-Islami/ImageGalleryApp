@@ -1,88 +1,193 @@
 <!doctype html>
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title><%= title %></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel='stylesheet'>
+<!--    <link rel="stylesheet" href="/css/style.css"/>-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <style>
+        :root {
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-color: #212529;
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --file-drop-bg: #e1e8f0;
+            --file-drop-hover: #d0e4ff;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-color: #e0e0e0;
+            --primary-color: #3daee9;
+            --secondary-color: #adb5bd;
+            --file-drop-bg: #2a2a2a;
+            --file-drop-hover: #3a3a3a;
+        }
+
+        body {
+            background-color: var(--bg-color) !important;
+            color: var(--text-color) !important;
+        }
+
+        .navbar, .card, .modal-content {
+            background-color: var(--card-bg) !important;
+            color: var(--text-color) !important;
+        }
+
+        /* Buttons */
+        .btn-outline-info {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .btn-outline-info:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
+        }
+
+        /* Gallery images */
+        .gallery-img {
+            background-color: var(--card-bg);
+        }
+
+        /* Cards (if any) */
+        .card {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .file-drop-area {
+            background-color: var(--file-drop-bg);
+            border-color: var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .file-drop-area:hover {
+            background-color: var(--file-drop-hover);
+        }
+        .file-drop-area p {
+            color: var(--text-color) !important;
+        }
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .gallery-header h2 {
+            font-weight: 700;
+            color: #17a2b8;
+        }
+
+        .gallery-block {
+            padding: 60px 0;
+        }
+
+        .gallery-img {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /*background-color: #f9f9f9;*/
+        }
+
+        .gallery-img img {
+            width: 100%;
+            height: 100%;
+            object-position: center;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .delete {
+            white-space: nowrap;
+            color: white;
+            font-size: 20px;
+            position: absolute;
+            overflow: hidden;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+        }
+
+        /* Alert and card backgrounds for theme */
+        .theme-alert {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        .theme-card {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+        }
+
+    </style>
 </head>
-<style>
-    body {
-        background-color: #f9f9f9;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
 
-    .navbar {
-        background-color: rgb(234, 245, 247) !important;
-    }
-
-    .gallery-header {
-        text-align: center;
-        margin-bottom: 3rem;
-    }
-
-    .gallery-header h2 {
-        font-weight: 700;
-        color: #17a2b8;
-    }
-
-    .gallery-block {
-        padding: 60px 0;
-    }
-
-    .gallery-img {
-        position: relative;
-        overflow: hidden;
-        border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        transition: transform 0.4s ease, box-shadow 0.4s ease;
-        height: 250px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #f9f9f9;
-    }
-
-    .gallery-img img {
-        width: 100%;
-        height: 100%;
-        object-position: center;
-        border-radius: 12px;
-        transition: transform 0.3s ease;
-    }
-
-    /*.gallery-img:hover .overlay {*/
-    /*    bottom: 0;*/
-    /*    height: 100%;*/
-    /*}*/
-
-    .delete {
-        white-space: nowrap;
-        color: white;
-        font-size: 20px;
-        position: absolute;
-        overflow: hidden;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-    }
-
-</style>
-
-<body class="bg-light">
-<nav class="navbar navbar-expand-lg navbar-light  mb-4" style="background-color: rgb(234 245 247) !important">
+<body>
+<nav class="navbar navbar-expand-lg navbar-light fixed-top shadow-sm p-3">
     <div class="container">
-        <a class="navbar-brand text-info" href="/"> 📸 Image Upload App </a>
-        <a class="btn btn-outline-info ms-auto" href="/add">Add Image/Images</a>
+        <a class="navbar-brand text-info" href="/">📸 Image Upload App</a>
+
+        <!-- Hamburger toggler for small screens -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="btn btn-outline-info me-2 mb-2 mb-lg-0" href="/add">Add Image/Images</a>
+                </li>
+                <li class="nav-item">
+                    <button id="theme-toggle" class="btn btn-outline-secondary mb-2 mb-lg-0">🌙</button>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
-<main class="container">
+<div style="height: 70px;"></div>
 
-</main>
+<main class="container"></main>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+<script >
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleBtn = document.getElementById('theme-toggle');
+
+        // Set initial theme from localStorage or default to dark
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        toggleBtn.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+
+        toggleBtn.addEventListener('click', () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            theme = theme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            toggleBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        });
+    });
+
+</script>
 </body>
 </html>
